@@ -17,7 +17,7 @@ const ChatFeed = (props) => {
            const lastMessageKey = index === 0 ? null : keys[index - 1]
            const isMymessage = userName === message.sender.userName;
            return(
-               <div key={'msg_${index}'} style={{width:'100%'}}>
+               <div key={`msg_${index}`} style={{width:'100%'}}>
 
                </div>
            )
