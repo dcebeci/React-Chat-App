@@ -1,3 +1,4 @@
+import { message } from "antd";
 import MessageForm from "./MessageForm";
 import MyMessage from "./MyMessage";
 import TheirMessage from "./TheirMessage";
@@ -8,6 +9,19 @@ const ChatFeed = (props) => {
     const { chats, activeChat, userName, messages} = props;
 
     const chat = chat && chats[activeChat];
+
+    const renderReadReceipts = (message,isMymessage) => {
+        chat.people.map((person, index) => person.last_read === message.id && (
+            <div 
+                key={`read_${index}`}
+                className="read-receipt"
+                style={{
+                    float: isMymessage ? 'right' : 'left',
+                    backgroundImage: `url(${person?.per?.avatar})`
+                }}
+                />
+        ))
+    }
 
    const renderMessages = () => {
        const keys = Object.keys(messages);
@@ -25,7 +39,7 @@ const ChatFeed = (props) => {
                        : <TheirMessage message={message} lastMessage={messages[lastMessageKey]}/>
                    }
                    <div className="read-receipts" style={{marginRight : isMymessage ? '18px': '0px', marginLeft : isMymessage ? '0px': '68px'}} >
-                        read-receipts
+                        {renderReadReceipts(message,isMymessage)}
                    </div>
                   </div>
                  
